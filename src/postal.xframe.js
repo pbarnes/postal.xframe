@@ -1,18 +1,18 @@
 (function( root, factory ) {
-	if ( typeof define === "function" && define.amd ) {
-		// AMD. Register as an anonymous module.
-		define( [ "lodash", "postal.federation" ], function( _, postal ) {
-			return factory( _, postal, root );
-		} );
-	} else if ( typeof module === "object" && module.exports ) {
-		// Node, or CommonJS-Like environments
-		module.exports = function( postalFed ) {
-			return factory( require( "lodash" ), postalFed );
-		};
-	} else {
-		// Browser globals
-		root.postal = factory( root._, root.postal, root );
-	}
+  if (typeof module === "object" && module.exports) {
+    // Node, or CommonJS-Like environments
+    module.exports = function (postal) {
+      return factory(require("lodash"), postal, require("riveter"));
+    };
+  } else if (typeof define === "function" && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(["lodash", "postal", "riveter"], function (_, postal, riveter) {
+      return factory(_, postal, riveter, root);
+    });
+  } else {
+    // Browser globals
+    root.postal = factory(root._, root.postal, root.riveter, root);
+  }
 }( this, function( _, postal, global, undefined ) {
 
 	//import("xframe.js");
